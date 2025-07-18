@@ -1,0 +1,9 @@
+*.swp
+*.swo
+*.pyc
+*.class
+session/*
+undo/*
+swap/*
+backup/*
+lazy-lock.json
