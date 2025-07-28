@@ -105,12 +105,37 @@ return {
       desc = "Grep (including node_modules)",
     },
     {
+      "<leader>fa",
+      function()
+        require("telescope.builtin").find_files({
+          hidden = true,
+          no_ignore = true,
+          find_command = { "fdfind", "--type", "f", "--no-ignore", "--hidden", "--follow" },
+        })
+      end,
+      desc = "File all, including ignored files",
+    },
+    {
       "<leader>gW",
       function()
         local word = vim.fn.expand("<cword>")
         require("telescope.builtin").live_grep({
           additional_args = function()
-            return { "--no-ignore", "--hidden" }
+            return { "--no-ignore", "--hidden", "--glob", "/node_modules/**" }
+          end,
+
+          default_text = word,
+        })
+      end,
+      desc = "Grep Word Under Cursor including Hidden",
+    },
+    {
+      "<leader>gw",
+      function()
+        local word = vim.fn.expand("<cword>")
+        require("telescope.builtin").live_grep({
+          additional_args = function()
+            return {}
           end,
 
           default_text = word,
