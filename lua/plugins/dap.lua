@@ -44,7 +44,10 @@ return {
       { "<leader>dw", function() require("dap.ui.widgets").hover() end, desc = "Widgets" },
     },
 
-    config = function()
+    config = function(_, opts)
+      require("dapui").setup()
+      require("dap").set_log_level("TRACE")
+
       if LazyVim.has("mason-nvim-dap.nvim") then
         require("mason-nvim-dap").setup(LazyVim.opts("mason-nvim-dap.nvim"))
       end
@@ -66,10 +69,16 @@ return {
       end
     end,
   },
+  -- Go specific DapStoppedLine
 
+  {
+    "leoluz/nvim-dap-go",
+    opts = {},
+  },
   -- Python-specific DAP setup
   {
     "mfussenegger/nvim-dap-python",
+    ft = "python",
     keys = {
       {
         "<leader>dPt",
@@ -88,7 +97,7 @@ return {
         ft = "python",
       },
     },
-    config = function()
+    config = function(_, opts)
       local dap = require("dap")
       local dap_python = require("dap-python")
 
