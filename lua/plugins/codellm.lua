@@ -4,6 +4,7 @@ return {
     "nvim-lua/plenary.nvim",
     "nvim-treesitter/nvim-treesitter",
   },
+
   opts = {
     strategies = {
       -- Change the default chat adapter
@@ -37,4 +38,29 @@ return {
       },
     },
   },
+
+  config = function(_, opts)
+    require("codecompanion").setup(opts)
+    vim.keymap.set(
+      { "n", "v" },
+      "<C-o>",
+      "<cmd>CodeCompanionActions<cr>",
+      { noremap = true, silent = true, desc = "CodeCompanion Actions" }
+    )
+    vim.keymap.set(
+      { "n", "v" },
+      "<leader>a",
+      "<cmd>CodeCompanionChat Toggle<cr>",
+      { noremap = true, silent = true, desc = "Toggle Chat Panel" }
+    )
+    vim.keymap.set(
+      "v",
+      "ga",
+      "<cmd>CodeCompanionChat Add<cr>",
+      { noremap = true, silent = true, desc = "Add Selection to Chat" }
+    )
+
+    -- Command-line abbreviation
+    vim.cmd([[cabbrev cc CodeCompanion]])
+  end,
 }
